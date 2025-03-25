@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Titlecards.css'
 import cards_data from '../../../assets/cards/Cards_data'
 
 const Titlecards = ({title, category}) => {
   const cardsRef = useRef();
-
+ const [apidata,setapidata]=useState([])
   const options = {
     method: 'GET',
     headers: {
@@ -13,7 +13,7 @@ const Titlecards = ({title, category}) => {
     }
 };
 
-fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
+fetch(`https://api.themoviedb.org/3/movie/${category?category :"now_playing"}?language=en-US&page=1`, options)
     .then(response => response.json())
     .then(response => response.json())
 .catch(err => console.error(err))
@@ -28,7 +28,7 @@ useEffect(() => {
 
     fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
     .then(response => response.json())
-    .then(response => response.json())
+    .then(response => setapidata(response.results))
 .catch(err => console.error(err))
 
     cardsRef.current.addEventListener('wheel', handleWheel);
@@ -38,10 +38,10 @@ useEffect(() => {
     <div className='titlecards'>
         <h2>{title ? title : "Popular on Netflix"}</h2>
         <div className='card-list' ref={cardsRef}>
-            {cards_data.map((card, index)=>{
+            {apidata.map((card, index)=>{
                 return <div className="card" key={index}>
-                    <img src={card.image} alt="" />
-                    <p>{card.name}</p>
+                    <img src={`https://image.tmdb.org/t/p/w500`+card.backdrp_path} alt="" />
+                    <p>{card.original_title}</p>
                 </div>
             })}
         </div>
