@@ -8,6 +8,13 @@ const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 
+const user_auth = async ()=>{
+  if(SignState==="Sign In"){
+      await login(email, password);
+  }else{
+      await signup(name, email, password);
+  }
+}
 
   return (
     <div className='login'>
