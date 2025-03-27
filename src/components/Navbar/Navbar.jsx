@@ -4,10 +4,10 @@ import logo from '../../assets/logo.png'
 import search_icon from '../../assets/search_icon.svg'
 import bell_icon from '../../assets/bell_icon.svg'
 
-import profile_img from '../../assets/profile_img.png'
-import caret_icon from '../../assets/caret_icon.svg'
 
-
+import { logout } from '../../firebase'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Navbar = () => {
@@ -39,7 +39,7 @@ const Navbar = () => {
       <div className="navbar-right">
         <img src={search_icon} alt="" className='icons'/>
         <p>children</p>
-       // <img src={bell_icon} alt="" className='icons'/>
+       <img src={bell_icon} alt="" className='icons'/>
         <div className='navbar-profile'>
         {/* <img src={bell_icon} alt="" className='profile'/> */}
         <img src={profile_img} alt="" className='profile'/>
@@ -47,7 +47,7 @@ const Navbar = () => {
        
 
         <div className="dropdown">
-    <p>Sign Out of Netflix</p>
+    <p onClick={()=>{logout()}}>Sign Out of Netflix</p>
 </div>
 
 
