@@ -3,12 +3,14 @@ import './Login.css'
 import hero_banner from '../../assets/logo.png'
 import {login,signup} from '../../firebase'
 const Login = () => {
+ 
 const [SignState,setsignState]=useState("sign In")
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 
-const user_auth = async ()=>{
+const user_auth = async (event)=>{
+  event.preventDefault();
   if(SignState==="Sign In"){
       await login(email, password);
   }else{
@@ -23,13 +25,13 @@ const user_auth = async ()=>{
             <h1>{SignState}</h1>
             <form>
               {SignState==="sign up" ? 
-             <input value={name} onChange={(e)=>{e.target.value}}
+             <input value={name} onChange={(e)=>{setName(e.target.value)}}
              type="text" placeholder='Your name' />:<></>}
-             <input value={email} onChange={(e)=>{e.target.value}}
+             <input value={email} onChange={(e)=>{setEmail(e.target.value)}}
              type="email" placeholder='Email' />
-             <input value={password} onChange={(e)=>{e.target.value}}
+             <input value={password} onChange={(e)=>{setPassword(e.target.value)}}
              type="password" placeholder='Password' />
-              <button>Sign In</button>
+              <button onClick={user_auth} type='submit'>{SignState}</button>
                 <div className='form-help'>
                   <div className="remember">
                     <input type="checkbox" />
