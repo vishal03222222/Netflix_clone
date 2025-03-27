@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import './Login.css'
 import hero_banner from '../../assets/logo.png'
-
+import {login,signup} from '../../firebase'
 const Login = () => {
 const [SignState,setsignState]=useState("sign In")
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+
 
   return (
     <div className='login'>
@@ -12,11 +16,13 @@ const [SignState,setsignState]=useState("sign In")
             <h1>{SignState}</h1>
             <form>
               {SignState==="sign up" ? 
-              <input type="text" placeholder="Your name"/> :<></>}
-              
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <button>Sign In</button>
+             <input value={name} onChange={(e)=>{e.target.value}}
+             type="text" placeholder='Your name' />:<></>}
+             <input value={email} onChange={(e)=>{e.target.value}}
+             type="email" placeholder='Email' />
+             <input value={password} onChange={(e)=>{e.target.value}}
+             type="password" placeholder='Password' />
+              <button>Sign In</button>
                 <div className='form-help'>
                   <div className="remember">
                     <input type="checkbox" />
